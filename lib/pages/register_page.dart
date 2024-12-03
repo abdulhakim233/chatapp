@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:chatapp/services/auth/auth_service.dart';
 import 'package:chatapp/components/my_button.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +42,7 @@ class RegisterPage extends StatelessWidget {
     else {
       showDialog(
         context: context,
-        builder: (context) => AlertDialog(
+        builder: (context) => const AlertDialog(
           title: Text("Passwords don't match!"),
         ),
       );
@@ -55,18 +53,6 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Center(
-          child: Text(
-            'Hudi',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 28,
-            ),
-          ),
-        ),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -79,7 +65,7 @@ class RegisterPage extends StatelessWidget {
             ),
 
             // little bit of space
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
 
             // Welcome back message
             Text(
@@ -91,37 +77,40 @@ class RegisterPage extends StatelessWidget {
             ),
 
             // little bit of space
-            SizedBox(height: 25),
+            const SizedBox(height: 25),
 
             // Email text Field
             MyTextfield(
               hintText: "Email",
               masked: false,
               controller: _emailController,
+              focusNode: null,
             ),
 
             // little bit of space
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
 
             // Pw text field
             MyTextfield(
               hintText: "Password",
               masked: true,
               controller: _pwController,
+              focusNode: null,
             ),
 
             // little bit of space
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
 
             // confim pw text field
             MyTextfield(
               hintText: "Confirm Password",
               masked: true,
               controller: _confirmPwController,
+              focusNode: null,
             ),
 
             // little bit of space
-            SizedBox(height: 25),
+            const SizedBox(height: 25),
 
             // Login Button
             MyButton(
@@ -130,7 +119,7 @@ class RegisterPage extends StatelessWidget {
             ),
 
             // little bit of space
-            SizedBox(height: 25),
+            const SizedBox(height: 25),
 
             // Register Button
             Row(

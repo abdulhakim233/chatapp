@@ -4,12 +4,14 @@ class MyTextfield extends StatelessWidget {
   final String hintText;
   final bool masked;
   final TextEditingController controller;
+  final FocusNode? focusNode;
 
   const MyTextfield({
     super.key,
     required this.hintText,
     required this.masked,
     required this.controller,
+    required this.focusNode,
   });
 
   @override

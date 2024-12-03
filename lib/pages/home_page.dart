@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:chatapp/components/my_drawer.dart';
 import 'package:chatapp/pages/chat_page.dart';
 import 'package:chatapp/services/auth/auth_service.dart';
@@ -20,14 +18,14 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Center(
+        title: const Center(
           child: Padding(
-            padding: const EdgeInsets.only(right: 50.0),
+            padding: EdgeInsets.only(right: 50.0),
             child: Text('Home'),
           ),
         ),
       ),
-      drawer: MyDrawer(),
+      drawer: const MyDrawer(),
       body: _buildUserList(),
     );
   }
