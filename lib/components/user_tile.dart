@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 
 class UserTile extends StatelessWidget {
@@ -21,14 +19,14 @@ class UserTile extends StatelessWidget {
           color: Theme.of(context).colorScheme.secondary,
           borderRadius: BorderRadius.circular(12),
         ),
-        margin: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-        padding: EdgeInsets.all(25),
+        margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+        padding: const EdgeInsets.all(25),
         child: Row(
           children: [
             // Icon
-            Icon(Icons.person),
+            const Icon(Icons.person),
 
-            SizedBox(
+            const SizedBox(
               width: 20,
             ),
             // username

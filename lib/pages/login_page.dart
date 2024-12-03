@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
-
 import 'package:chatapp/services/auth/auth_service.dart';
 import 'package:chatapp/components/my_button.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +32,7 @@ class LoginPage extends StatelessWidget {
     // catch errors
     catch (e) {
       showDialog(
+        // ignore: use_build_context_synchronously
         context: context,
         builder: (context) => AlertDialog(
           title: Text(e.toString()),
@@ -58,7 +57,7 @@ class LoginPage extends StatelessWidget {
             ),
 
             // little bit of space
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
 
             // Welcome back message
             Text(
@@ -70,27 +69,29 @@ class LoginPage extends StatelessWidget {
             ),
 
             // little bit of space
-            SizedBox(height: 25),
+            const SizedBox(height: 25),
 
             // Email text Field
             MyTextfield(
               hintText: "Email",
               masked: false,
               controller: _emailController,
+              focusNode: null,
             ),
 
             // little bit of space
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
 
             // Pw text field
             MyTextfield(
               hintText: "Password",
               masked: true,
               controller: _pwController,
+              focusNode: null,
             ),
 
             // little bit of space
-            SizedBox(height: 25),
+            const SizedBox(height: 25),
 
             // Login Button
             MyButton(
@@ -99,7 +100,7 @@ class LoginPage extends StatelessWidget {
             ),
 
             // little bit of space
-            SizedBox(height: 25),
+            const SizedBox(height: 25),
 
             // Register Button
             Row(

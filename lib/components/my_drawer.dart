@@ -1,5 +1,4 @@
-// ignore_for_file: prefer_const_constructors
-
+import 'package:chatapp/pages/profile_page.dart';
 import 'package:chatapp/services/auth/auth_service.dart';
 import 'package:chatapp/pages/settings_page.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +24,7 @@ class MyDrawer extends StatelessWidget {
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary,
             ),
-            child: Center(
+            child: const Center(
               child: Icon(
                 Icons.message,
                 size: 64,
@@ -37,8 +36,8 @@ class MyDrawer extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 25.0),
             child: ListTile(
-              title: Text('H O M E'),
-              leading: Icon(Icons.home),
+              title: const Text('H O M E'),
+              leading: const Icon(Icons.home),
               onTap: () {
                 // close the drawer
                 Navigator.pop(context);
@@ -50,8 +49,8 @@ class MyDrawer extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 25.0),
             child: ListTile(
-              title: Text('S E T T I N G S'),
-              leading: Icon(Icons.settings),
+              title: const Text('S E T T I N G S'),
+              leading: const Icon(Icons.settings),
               onTap: () {
                 // close the drawer
                 Navigator.pop(context);
@@ -60,7 +59,28 @@ class MyDrawer extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SettingsPage(),
+                    builder: (context) => const SettingsPage(),
+                  ),
+                );
+              },
+            ),
+          ),
+
+          // Profile List tile
+          Padding(
+            padding: const EdgeInsets.only(left: 25.0),
+            child: ListTile(
+              title: const Text('P R O F I L E'),
+              leading: const Icon(Icons.person),
+              onTap: () {
+                // close the drawer
+                Navigator.pop(context);
+
+                // navigate to the settings page
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfilePage(),
                   ),
                 );
               },
@@ -71,8 +91,8 @@ class MyDrawer extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 25.0),
             child: ListTile(
-              title: Text('L O G O U T'),
-              leading: Icon(Icons.logout),
+              title: const Text('L O G O U T'),
+              leading: const Icon(Icons.logout),
               onTap: logout,
             ),
           )
