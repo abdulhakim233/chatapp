@@ -208,7 +208,7 @@ class _ChatPageState extends State<ChatPage> {
                   formattedTime,
                   style: TextStyle(
                     fontSize: 12,
-                    color: Colors.white.withOpacity(0.6),
+                    color: Colors.grey,
                   ),
                 ),
               ),
