@@ -4,6 +4,7 @@ import 'package:chatapp/services/auth/auth_service.dart';
 import 'package:chatapp/services/chat/chat_services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ChatPage extends StatefulWidget {
   final String recieverID;
@@ -116,6 +117,9 @@ class _ChatPageState extends State<ChatPage> {
   Widget _buildMessageList() {
     String senderID = _authService.getCurrentUser()!.uid;
 
+    DateTime?
+        previousDate; // Move `previousDate` to the scope of `_buildMessageList`
+
     return StreamBuilder(
       stream: _chatService.getMessages(widget.recieverID, senderID),
       builder: (context, snapshot) {
@@ -132,32 +136,86 @@ class _ChatPageState extends State<ChatPage> {
         // return list view
         return ListView(
           controller: _scrollController,
-          children:
-              snapshot.data!.docs.map((doc) => _buildMessageItem(doc)).toList(),
+          children: snapshot.data!.docs.map((doc) {
+            final widget = _buildMessageItem(doc, previousDate);
+
+            // Update `previousDate` after rendering each message
+            previousDate = DateTime.fromMillisecondsSinceEpoch(
+              doc['timestamp'].seconds * 1000 +
+                  doc['timestamp'].nanoseconds ~/ 1000000,
+            );
+
+            return widget;
+          }).toList(),
         );
       },
     );
   }
 
-  Widget _buildMessageItem(DocumentSnapshot doc) {
+  Widget _buildMessageItem(DocumentSnapshot doc, DateTime? previousDate) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
 
-    // is current user
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(
+      data['timestamp'].seconds * 1000 +
+          data['timestamp'].nanoseconds ~/ 1000000,
+    );
+
+    String formattedDate = DateFormat('dd MMM, yyyy').format(dateTime);
+    String formattedTime = DateFormat('HH:mm').format(dateTime);
+
+    // Check if date separator is needed
+    bool showDateSeparator = (previousDate == null) ||
+        previousDate.day != dateTime.day ||
+        previousDate.month != dateTime.month ||
+        previousDate.year != dateTime.year;
+
+    // Determine if the sender is the current user
     bool isCurrentUser = data['senderID'] == _authService.getCurrentUser()!.uid;
 
-    // align message to the right if sender is the current user, otherwise left
+    // Align message based on sender
     var alignment =
         isCurrentUser ? Alignment.centerRight : Alignment.centerLeft;
 
-    return Container(
-      alignment: alignment,
-      child: Column(
-        crossAxisAlignment:
-            isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-        children: [
-          ChatBubble(message: data['message'], isCurrentUser: isCurrentUser),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment:
+          isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+      children: [
+        if (showDateSeparator) // Display date separator if needed
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Center(
+              child: Text(
+                formattedDate,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
+                ),
+              ),
+            ),
+          ),
+        Container(
+          alignment: alignment,
+          child: Column(
+            crossAxisAlignment: isCurrentUser
+                ? CrossAxisAlignment.end
+                : CrossAxisAlignment.start,
+            children: [
+              ChatBubble(
+                  message: data['message'], isCurrentUser: isCurrentUser),
+              Padding(
+                padding: const EdgeInsets.only(right: 15, left: 15),
+                child: Text(
+                  formattedTime,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
