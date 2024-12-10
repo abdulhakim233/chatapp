@@ -2,6 +2,8 @@ import 'package:chatapp/services/auth/auth_service.dart';
 import 'package:chatapp/components/my_button.dart';
 import 'package:flutter/material.dart';
 import '../components/my_textfield.dart';
+import 'package:chatapp/themes/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   // email and pw controller
@@ -45,6 +47,22 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: Icon(
+              // Change the icon based on dark mode status
+              Provider.of<ThemeProvider>(context).isDarkMode
+                  ? Icons.light_mode // Icon for dark mode
+                  : Icons.dark_mode, // Icon for light mode
+            ),
+            onPressed: () {
+              // Toggle the theme when the button is pressed
+              Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
+            },
+          ),
+        ],
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
